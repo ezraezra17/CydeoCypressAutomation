@@ -68,10 +68,9 @@ describe('Context: My First Tests', () => {
         expect(buttonElement).to.have.text('Login');
         expect(buttonElement).to.have.class('btn btn-primary');
        
-
     })
-     
-
+      //you got all buttons with tag name 
+    
 
    })
       
