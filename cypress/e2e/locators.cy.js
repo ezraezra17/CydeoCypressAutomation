@@ -52,7 +52,7 @@ describe('Context: My First Tests', () => {
 
    })
    
-   it.only('chcek diffrent type of assertions',()=>{
+   it.only('check diffrent type of assertions',()=>{
    //Cypress itself bundles(uses) provided by Chai,Sino and JQuery libraries 
    // Should Assertion: does the assertion directly on the object itself
    //implicit 
@@ -70,7 +70,7 @@ describe('Context: My First Tests', () => {
        
     })
       //you got all buttons with tag name 
-    
+      
 
    })
       
