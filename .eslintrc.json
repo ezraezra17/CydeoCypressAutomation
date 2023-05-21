@@ -3,6 +3,7 @@
       "cypress",
       "chai-friendly",
       "prettier"
+      
     ],
     "extends": [
       "airbnb",
@@ -26,4 +27,7 @@
     "env": {
         "cypress/globals": true
       }
+     
+      
+      
 }

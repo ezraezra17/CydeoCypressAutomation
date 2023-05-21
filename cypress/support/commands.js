@@ -23,3 +23,12 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+import 'cypress-file-upload';
+
+Cypress.Commands.add('textExists', (text) => {
+  cy.contains(text).should('exist');
+});
+
+// textexists is the commnad name , when we are calling this function from another test class: cy.textExists('paramater');
+// cy.tectExists('parameter');//creating custom commands
+// kind of like utility methods we used before, it overrides existing command
