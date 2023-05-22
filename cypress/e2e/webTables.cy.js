@@ -25,12 +25,12 @@ describe('Cypress WebTable Tests', { baseUrl: 'https://demoqa.com' }, () => {
         cy.get('#lastName').clear().type('Specter');
         cy.get('#submit').click();
         // from cypress test perspective we are still inside row element : need to do assertion
-        cy.wrap(row).find('.rt-td').eq(0).should('contain', 'Harverd');
+        cy.wrap(row).find('.rt-td').eq(0).should('contain', 'Harvey');
         cy.wrap(row).find('.rt-td').eq(1).should('contain', 'Specter');
       });
   });
 
-  it('Check the frstTest Case', () => {
+  it.skip('Check the frstTest Case', () => {
     cy.get('.rt-tbody')
       .contains('.rt-tr-group', 'Alden')
       .then((row) => {
@@ -44,11 +44,11 @@ describe('Cypress WebTable Tests', { baseUrl: 'https://demoqa.com' }, () => {
       });
   });
 
-  it.skip('Check finding and deleting a record', () => {
+  it('Check finding and deleting a record', () => {
     cy.get('.rt-tbody') //
       .contains('.rt-tr-group', 'Alden') //
       .then((row) => {
-        cy.wrap(row).find('title="Delete"').click();
+        cy.wrap(row).find('[title="Delete"]').click();
         // f
         cy.get('.rt-tbody').should('not.contain', 'Alden');
         // search for Alden in the body
@@ -112,24 +112,25 @@ describe('Cypress WebTable Tests', { baseUrl: 'https://demoqa.com' }, () => {
     });
   });
 
-  it.skip('Adding a new record', () => {
+  it('Adding a new record', () => {
     // click on add button
     cy.get('#addNewRecordButton').click();
     cy.get('#firstName').type('Harvey');
     cy.get('#lastName').type('Specter');
     cy.get('#userEmail').type('specter@example.com');
+    cy.get('#age').type('40');
     cy.get('#salary').type('70000');
     cy.get('#department').type('legal');
     cy.get('#submit').click();
     // assert that new record is added
-    cy.get('.rt-body') //
-      .contains('.rt-tr-group', 'Alden') //
+    cy.get('.rt-tbody') //
+      .contains('.rt-tr-group', 'Harvey') //
       .then((row) => {
         // from cypress test perspective we are still inside row element : need to do assertion
-        cy.wrap(row).find('.rt-td').eq(0).should('contain', 'Harvery');
+        cy.wrap(row).find('.rt-td').eq(0).should('contain', 'Harvey');
         cy.wrap(row).find('.rt-td').eq(1).should('contain', 'Specter');
-        cy.wrap(row).find('.rt-td').eq(2).should('contain', '40');
-        cy.wrap(row).find('.rt-td').eq(3).should('contain', 'specter@example.com');
+         cy.wrap(row).find('.rt-td').eq(2).should('contain', '40');
+         cy.wrap(row).find('.rt-td').eq(3).should('contain', 'specter@example.com');
         cy.wrap(row).find('.rt-td').eq(4).should('contain', '70000');
         cy.wrap(row).find('.rt-td').eq(5).should('contain', 'legal');
       });
@@ -161,52 +162,7 @@ describe('Cypress WebTable Tests', { baseUrl: 'https://demoqa.com' }, () => {
       });
   });
 
-  it.only('Adding a new record -Better approach', () => {
-    cy.get('#addNewRecordButton').click();
-    cy.fixture('user').then((user) => {
-      const columnNamess = Object.keys(user.user1);
-      const columnValuess = Object.values(user.user1);
-
-      cy.wrap(columnNamess).each((cName, index) => {
-        // cy.log(cName)//each columnName
-        //  cy.log(columnValuess[index]);//each column value
-
-        cy.get(`#${cName}`).clear().type(`${columnValuess[index]}`);
-        cy.get('#submit').click();
-
-        // assert that it was included
-        cy.get('.rt-tbody')
-          .contains('.rt-tr-group', columnValuess[0])
-          .then((row) => {
-            cy.wrap(columnValuess).each((value, index) => {
-              cy.wrap(row).find('.rt-td').eq(index).should('contain', value);
-            });
-          });
-      });
-    });
-  });
-  it.skip('Adding a new record - Better Aproach', () => {
-    // click on add button
-    cy.get('#addNewRecordButton').click();
-    cy.fixture('user').then((user) => {
-      const columnNames = Object.keys(user.user1); // goes to fixture folder, gets user1 object keys and stores into columnNames Array
-      const userData = Object.values(user.user1);
-      cy.wrap(columnNames).each((columnName, index) => {
-        //  cy.log(columnName);
-        //  cy.log(userData[index]);
-        cy.get(`#${columnName}`).type(`${userData[index]}`);
-      });
-      cy.get('#submit').click();
-      // assert that new record is added
-      cy.get('.rt-tbody')
-        .contains('rt-tr-group', userData[0])
-        .then((row) => {
-          cy.wrap(userData).each((value, index) => {
-            cy.wrap(row).find('.rt-td').eq(index).should('contain', value);
-          });
-        });
-    });
-  });
+  
 
   it('Adding a new record - Better Aproach', () => {
     // click on add button
@@ -230,4 +186,56 @@ describe('Cypress WebTable Tests', { baseUrl: 'https://demoqa.com' }, () => {
         });
     });
   });
+
+
+
+  it.skip('Creating new data -retry the better approach',()=>{
+    
+    cy.get('#addNewRecordButton').click();
+
+    cy.fixture('user').then((user)=>{//turned this into object of the class
+
+       const user1columnNames2= Object.keys(user.user1);
+       const user1columnValues2= Object.values(user.user1);
+
+       cy.wrap(user1columnNames2).each((column2,index)=>{
+            cy.get(`#${column2}`).type(user1columnValues2[index]);
+       });
+
+       cy.get('#submit').click();
+        
+
+       //now make assertions
+       
+       cy.get('.rt-tbody')
+       .contains('.rt-tr-group',user1columnValues2[0])//ı got the recorded walue on website
+       .then((row)=>{
+        
+          cy.wrap(user1columnValues2).each((val1,index)=>{
+              
+            cy.get(row).find('.rt-td').eq(index).should('contain',val1);
+
+
+          })
+            
+
+
+
+
+       })
+
+
+
+
+
+    })
+    
+
+
+
+
+
+
+
+  })
 });
