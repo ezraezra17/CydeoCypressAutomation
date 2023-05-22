@@ -129,8 +129,8 @@ describe('Cypress WebTable Tests', { baseUrl: 'https://demoqa.com' }, () => {
         // from cypress test perspective we are still inside row element : need to do assertion
         cy.wrap(row).find('.rt-td').eq(0).should('contain', 'Harvey');
         cy.wrap(row).find('.rt-td').eq(1).should('contain', 'Specter');
-         cy.wrap(row).find('.rt-td').eq(2).should('contain', '40');
-         cy.wrap(row).find('.rt-td').eq(3).should('contain', 'specter@example.com');
+        cy.wrap(row).find('.rt-td').eq(2).should('contain', '40');
+        cy.wrap(row).find('.rt-td').eq(3).should('contain', 'specter@example.com');
         cy.wrap(row).find('.rt-td').eq(4).should('contain', '70000');
         cy.wrap(row).find('.rt-td').eq(5).should('contain', 'legal');
       });
@@ -162,8 +162,6 @@ describe('Cypress WebTable Tests', { baseUrl: 'https://demoqa.com' }, () => {
       });
   });
 
-  
-
   it('Adding a new record - Better Aproach', () => {
     // click on add button
     cy.get('#addNewRecordButton').click();
@@ -187,55 +185,30 @@ describe('Cypress WebTable Tests', { baseUrl: 'https://demoqa.com' }, () => {
     });
   });
 
-
-
-  it.skip('Creating new data -retry the better approach',()=>{
-    
+  it.skip('Creating new data -retry the better approach', () => {
     cy.get('#addNewRecordButton').click();
 
-    cy.fixture('user').then((user)=>{//turned this into object of the class
+    cy.fixture('user').then((user) => {
+      // turned this into object of the class
 
-       const user1columnNames2= Object.keys(user.user1);
-       const user1columnValues2= Object.values(user.user1);
+      const user1columnNames2 = Object.keys(user.user1);
+      const user1columnValues2 = Object.values(user.user1);
 
-       cy.wrap(user1columnNames2).each((column2,index)=>{
-            cy.get(`#${column2}`).type(user1columnValues2[index]);
-       });
+      cy.wrap(user1columnNames2).each((column2, index) => {
+        cy.get(`#${column2}`).type(user1columnValues2[index]);
+      });
 
-       cy.get('#submit').click();
-        
+      cy.get('#submit').click();
 
-       //now make assertions
-       
-       cy.get('.rt-tbody')
-       .contains('.rt-tr-group',user1columnValues2[0])//ı got the recorded walue on website
-       .then((row)=>{
-        
-          cy.wrap(user1columnValues2).each((val1,index)=>{
-              
-            cy.get(row).find('.rt-td').eq(index).should('contain',val1);
+      // now make assertions
 
-
-          })
-            
-
-
-
-
-       })
-
-
-
-
-
-    })
-    
-
-
-
-
-
-
-
-  })
+      cy.get('.rt-tbody')
+        .contains('.rt-tr-group', user1columnValues2[0]) // ı got the recorded walue on website
+        .then((row) => {
+          cy.wrap(user1columnValues2).each((val1, index) => {
+            cy.get(row).find('.rt-td').eq(index).should('contain', val1);
+          });
+        });
+    });
+  });
 });

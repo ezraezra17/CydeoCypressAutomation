@@ -1,13 +1,13 @@
 /// <reference types="cypress" />
 
-describe('Alerts in Cypress Test Environment', { baseUrl: 'https://practice.cydeo.com/' }, () => {
+describe('Alerts in Cypress Test Environment', { baseUrl: 'https://demoqa.com' }, () => {
   beforeEach(() => {
     // run before each test case, beforeMethod in TestNG
     cy.clearCookies();
     cy.visit('/alerts');
   });
 
-  it.skip('Check alert confirmation', () => {
+  it('Check alert confirmation', () => {
     /**
      * Browser Commands, windw: alert , window: confirm,window: on etc...
      */
@@ -34,7 +34,7 @@ describe('Alerts in Cypress Test Environment', { baseUrl: 'https://practice.cyde
       .then(() => {
         expect(stub.getCall(0)).to.be.calledWith('Do you confirm action?'); // I am verifiying the allert
       });
-    cy.on('window:confirm', () => false); // I am confirming the alert
+    cy.on('window:confirm', () => false); // I am declining the alert
     cy.contains('You selected Cancel').should('be.visible');
   });
 });

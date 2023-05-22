@@ -17,24 +17,25 @@ class Auth {
 // create an object of the class
 
 const auth = new Auth();
-class Locators{//we can create another class here, how do we apply findBy annotation of Selenium with Cypress
-    get userName(){//userName is the webelement variable name
-        return cy.get('[name="username"]',{timeout:10000});//defining custom timeout for a specific element ,thistimeout is a dynamic wait like implicitly wait , when it finds out it moves on 
+class Locators {
+  // we can create another class here, how do we apply findBy annotation of Selenium with Cypress
+  get userName() {
+    // userName is the webelement variable name
+    return cy.get('[name="username"]', { timeout: 10000 }); // defining custom timeout for a specific element ,thistimeout is a dynamic wait like implicitly wait , when it finds out it moves on
+  }
 
-    }
+  get password() {
+    return cy.get('[name="password"]', { timeout: 10000 });
+  }
 
-    get password (){
-        return cy.get('[name="password"]',{timeout:10000});
-
-    }
-    get submit(){
-        return cy.get('#wooden_spoon');
-    }
+  get submit() {
+    return cy.get('#wooden_spoon');
+  }
 }
 
 const locators = new Locators();
 
 module.exports = {
   auth,
-  locators
+  locators,
 };

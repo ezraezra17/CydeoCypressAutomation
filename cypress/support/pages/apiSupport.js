@@ -1,10 +1,1 @@
-class ApiSupport{
-
- 
-
-
-
-
-
-
-}
+class ApiSupport {}
