@@ -1,6 +1,7 @@
 const username = `user${Math.floor(Math.random() * 100000 + 100000)
   .toString()
   .substring(1)}`; // math random creates a random between 0 and 1
+console.log(username);
 const password = `Test123456!`;
 describe('E2E-Test API integrated UI Test', () => {
   beforeEach('create a user and generate token from API and set cookies', () => {
@@ -9,10 +10,11 @@ describe('E2E-Test API integrated UI Test', () => {
       method: 'POST', // FİRST CREATE A USER
       url: `${Cypress.env('apiUrl')}${Cypress.env('generateUser')}`, // WE GENERATE TOKEN
       body: {
-        username,
-        password,
+        userName:username,
+        password:password,
       },
     }).then((response) => {
+      //setcookie method sets the cookies for the uı environment
       cy.setCookie('userID', response.body.userID);
       cy.setCookie('UserName', response.body.username);
     });
@@ -23,7 +25,7 @@ describe('E2E-Test API integrated UI Test', () => {
       url: `${Cypress.env('apiUrl')}${Cypress.env('generateToken')}`,
       body: {
         userName: username,
-        password,
+        password:password,
       },
     }).then((response) => {
       cy.setCookie('token', response.body.token);
@@ -50,4 +52,15 @@ describe('E2E-Test API integrated UI Test', () => {
       });
     });
   });
+  it('Check if user is logged in from UI environment', { baseUrl: 'https://demoqa.com' }, () => {
+    cy.visit('/profile');
+    cy.get('#userName-value').contains(username).should('be.visible');
+  });
 });
+
+
+
+//Notes
+//when we want to generate token for apı we go to the login page and pass the credentials and login 
+//then we inspect click application and click cookies from the right side bar and see the generated token
+//click lighthouse button and choose desktop to make accessibility test by using google developer tool-light house to do performance test
