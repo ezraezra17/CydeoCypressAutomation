@@ -10,13 +10,13 @@ describe('E2E-Test API integrated UI Test', () => {
       method: 'POST', // FİRST CREATE A USER
       url: `${Cypress.env('apiUrl')}${Cypress.env('generateUser')}`, // WE GENERATE TOKEN
       body: {
-        userName:username,
+        userName:username, 
         password:password,
       },
     }).then((response) => {
       //setcookie method sets the cookies for the uı environment
       cy.setCookie('userID', response.body.userID);
-      cy.setCookie('UserName', response.body.username);
+      cy.setCookie('userName', response.body.username);
     });
     // following will generate token and set token cookies
     // following will generate token and set token cookies
@@ -26,7 +26,7 @@ describe('E2E-Test API integrated UI Test', () => {
       body: {
         userName: username,
         password:password,
-      },
+      }
     }).then((response) => {
       cy.setCookie('token', response.body.token);
       cy.setCookie('expires', response.body.expires);

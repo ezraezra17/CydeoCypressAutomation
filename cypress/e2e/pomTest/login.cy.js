@@ -13,6 +13,7 @@ describe('Auth : Login user with different ways', () => {
     cy.clearAllCookies;
     navigateTo.loginPage(); // this function is called from outr POM
   });
+  
 
   it.skip('Happy Path scenario using POM function', () => {
     // we used utility method login function
